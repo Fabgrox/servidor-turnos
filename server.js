@@ -6,7 +6,7 @@ const server = http.createServer((req, res) => {
     res.end('Servidor de Clavijero Activo\n');
 });
 
-const wss = new WebSocket.Server({ server });
+const wss = new WebSocket.Server({ server, path: '/ws' });
 
 let turnosActuales = [];
 
