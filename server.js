@@ -1,26 +1,9 @@
 const WebSocket = require('ws');
 const http = require('http');
-const fs = require('fs');
-const path = require('path');
 
 const server = http.createServer((req, res) => {
-    // >>> NUEVA RUTA PARA LA VALIDACIÓN DE LICENCIA <<<
-    if (req.url === '/licencia' && req.method === 'GET') {
-        const rutaLicencia = path.join(__dirname, 'licencia.json');
-        
-        fs.readFile(rutaLicencia, 'utf8', (err, data) => {
-            if (err) {
-                res.writeHead(404, { 'Content-Type': 'application/json' });
-                return res.end(JSON.stringify({ error: 'Archivo de licencia no encontrado' }));
-            }
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-            return res.end(data); // Envía {"hwid_permitido": "..."}
-        });
-    } else {
-        // Tu ruta por defecto original
-        res.writeHead(200, { 'Content-Type': 'text/plain' });
-        res.end('Servidor de Clavijero Activo\n');
-    }
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('Servidor de Clavijero Activo\n');
 });
 
 const wss = new WebSocket.Server({ server, path: '/ws' });
